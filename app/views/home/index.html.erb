@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>Graph Coloring Prob !</title>
+</head>
+
+<body >
+<h1>Vertex coloring problem </h1>
+<canvas id = "node" ></canvas>
+<div class="sidebar">
+Welcome to Canvas<br>
+To Draw<br>
+1 click - create a node
+click 2 nodes - an edge
+Maximum of 10 colors provided
+<br>
+<br>
+<button type="button" id="a" onclick="submit(); "> color it </button>
+<button type="button" id="b" onclick="clr(); "> clear ! </button>
+
+</div>
+
+<script>
+
+<% if @nodes %>
+<% for n, co in @nodes %>
+	   nodes[<%= n %>] = new node(<%= n %>, <%= co[0] %>, <%= co[1] %>, [], 0);
+<% end %>
+<% end %>
+
+
+<% for n, neigh in @adj_arg %>
+
+<% for a in neigh %>
+	nodes[<%= n %>].adj.push(<%= a %>);
+<% end %>
+<% end %>
+
+
+k = 0
+<% for col, n in @colored %>
+	<% for i in n %>
+		nodes[<%= i %>].color = k;
+	<% end %>
+	k += 1;
+<% end %>
+
+    gCanvasElement = document.getElementById("node");
+   	gCanvasElement.width = kPixelWidth;
+   	gCanvasElement.height = kPixelHeight;
+   	gDrawingContext = gCanvasElement.getContext("2d");
+	gCanvasElement.addEventListener("click", nodeOnClick, false);
+
+	draw();
+
+</script>
+</body>
+</html>
